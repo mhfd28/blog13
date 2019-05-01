@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Cidade</th>
+      <th>UF</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for city in cities %}
+      <tr>
+        <td>
+          <a href=""
+             class="city"
+             data-url="{% url 'areas_ajax' %}?city={{ city.pk }}" 
+             data-uf="{{ city.pk }}"
+             >{{ city.name }}</a>
+        </td>
+        <td>{{ city.uf }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

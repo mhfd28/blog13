@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br><br>
+<div class = "container">
+  <h2> this is your profile page </h2>
+  <br><br><br>
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.Author.profile_picture.url}}">
+        <div class="media-body">
+          <h4 class="text-srcondary">your username is : {{ user.username }}</h4>
+
+          <h5 class="account-heading">your phone is : {{ user.phone }}</h5>
+
+          <p class="text-srcondary">your email address is : {{ user.email }}</p>
+
+
+          <h4>for see your page click</h4>
+        </div>
+
+      </div>
+
+      <form method="POST"   enctype="multipart/form-data" >
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Profile Info</legend>
+            {{ u_form }}
+            {{ p_form }}
+            {{ my_form }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="sumbit"> Update your Profile </button>
+        </div>
+      </form>
+    </div>
+
+
+
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+</div>
+{% endblock content %}

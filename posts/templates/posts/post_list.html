@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Human Resources Module{% endblock %}
+
+{% block content %}
+  <h2>Human Resources Module » People Management</h2>
+
+  <p>
+    <a href="{% url 'post_add' %}">Add person</a>
+  </p>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Birthdate</th>
+        <th>Country</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in people %}
+        <tr>
+          <td><a href="{% url 'post_change' post.pk %}">{{ post.title }}</a></td>
+          <td>{{ post.country.title }}</td>
+          <td>{{ post.city.title }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No person in the database. <a href="{% url 'post_add' %}">Add the first person</a>.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

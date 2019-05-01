@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class = "container">
+   <div class = "column">
+     <br/><br/><br/>
+     <h2>list of city :</h2>
+     <br/>
+      {% for city in city_qs  %}
+         <h3><a href = "{{ city.get_absolute_url }}"> city:{{city.title}}</a></h3>
+         <br/><br/><br/>
+      {% endfor %}
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {% endblock content %}

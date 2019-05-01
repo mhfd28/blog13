@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <h2>Post Form</h2>
+  <!-- <h2>فرم ارسال</h2> -->
+
+<div class = container>
+  <div class="row">
+  <form method="post" enctype='multipart/form-data' id="postForm"  data-categories-url="{% url 'ajax_load_categories' %}"  data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
+    {% csrf_token %}
+    <table>
+      {{ form|crispy }}
+    </table>
+    <button type="submit">Save</button>
+    <!-- <a href="{% url 'post_changelist' %}">Nevermind</a> -->
+  </form>
+
+
+  </div>
+</div>
+
+<!--  -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_city").change(function () {
+      var url = $("#postForm").attr("data-cities-url");
+      var cityId = $(this).val();
+      // var categoryId = $(this).val();
+
+
+      $.ajax({
+        url: url,
+        data: {
+          'city':cityId
+          // 'category':categoryId
+
+
+        },
+        success: function (data) {
+          $("#id_area").html(data);
+          // $("#id_instance").html(data);
+
+        }
+      });
+
+    });
+    //
+    $("#id_category").change(function () {
+      var url = $("#postForm").attr("data-categories-url");
+      var categoryId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'category':categoryId
+
+        },
+        success: function (data) {
+          $("#id_instance").html(data);
+        }
+      });
+
+    });
+  </script>
+  <!-- <script>
+
+    $("#id_category").change(function () {
+      var url = $("#postForm").attr("data-cities-url");
+      var categoryId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'category':categoryId
+
+        },
+        success: function (data) {
+          $("#id_instance").html(data);
+        }
+      });
+
+    });
+  </script> -->
+
+{% endblock %}

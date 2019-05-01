@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>Post Form</h2>
+
+  <form method="post" id="postForm" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit">Save</button>
+    <a href="{% url 'post_changelist' %}">Nevermind</a>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_city").change(function () {
+      var url = $("#postForm").attr("data-cities-url");
+      var cityId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'city':cityId
+
+        },
+        success: function (data) {
+          $("#id_area").html(data);
+        }
+      });
+
+    });
+  </script>
+
+{% endblock %}

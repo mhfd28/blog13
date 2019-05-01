@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Display and style rich text labels</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.6/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.6/mapbox-gl-geocoder.css' type='text/css' />
+<style>
+.geocoder {
+  position:absolute;
+  z-index:1;
+  width:50%;
+  left:50%;
+  margin-left:-25%;
+  top:20px;
+}
+.mapboxgl-ctrl-geocoder { min-width:100%; }
+</style>
+<style>
+.coordinates {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  /* color: red; */
+  position: absolute;
+  bottom: 40px;
+  left: 10px;
+  padding:5px 10px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 18px;
+  border-radius: 3px;
+  display: none;
+}
+</style>
+
+
+<div id='map'></div>
+<pre id='info'></pre>
+<pre id='coordinates' class='coordinates'></pre>
+<div id='geocoder' class='geocoder'></div>
+
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWhmZDI4IiwiYSI6ImNqdHZtZXhxZTFzbmo0M3BjdmRoMHhyaDUifQ.iptJuYP1nlA5BhBiKKlYdg';
+mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
+var coordinates = document.getElementById('coordinates');
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+    center: [51.3890, 35.6892], // starting position [lng, lat]
+    zoom: 12 // starting zoom
+});
+
+
+
+map.on('load', function() {
+    map.setLayoutProperty('country-label', 'text-field', ['format',
+        ['get', 'name_en'], { 'font-scale': 1.2 },
+        '\n', {},
+        ['get', 'name'], {
+            'font-scale': 0.8,
+            'text-font': ['literal', [ 'DIN Offc Pro Italic', 'Arial Unicode MS Regular' ]]
+        }
+    ]);
+
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+
+
+
+var geocoder = new MapboxGeocoder({
+accessToken: mapboxgl.accessToken
+});
+
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+
+var marker = new mapboxgl.Marker({
+    draggable: true
+})
+    // .setLngLat([51.3890, 35.6892])
+    .setLngLat([51.3890, 35.6892])
+
+    .addTo(map);
+
+function onDragEnd() {
+   var lngLat = marker.getLngLat();
+   coordinates.style.display = 'block';
+   coordinates.innerHTML = 'Longitude: ' + lngLat.lng +
+    '<br />Latitude: ' + lngLat.lat;
+}
+
+marker.on('dragend', onDragEnd);
+
+
+
+</script>
+
+</body>
+</html>

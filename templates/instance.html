@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+{% for ins in instance %}
+
+  <div>
+
+   <h2> <a href="{{ ins.get_absolute_url }}">{{ ins.title }}</a></h2>
+  </div>
+  <br/>
+{% endfor %}
+
+
+
+
+{% endblock content %}

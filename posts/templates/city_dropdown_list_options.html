@@ -1,0 +1,8 @@
+<option value="">---------</option>
+{% for area in areas %}
+<option value="{{ area.pk }}">{{ area.title }}</option>
+{% endfor %}
+
+<!-- {% for instance in instances %}
+<option value="{{ instance.pk }}">{{ instance.title }}</option>
+{% endfor %} -->

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<style>
+  label {
+    padding: 10px;
+  }
+</style>
+
+<div class="jumbotron">
+  <div class="container">
+    <div style="border: dashed 1px grey;">
+      <form id="myForm"
+            method="GET"
+            class="form-inline"
+            data-city="{{ request.GET.city }}"
+            data-area="{{ request.GET.area }}"
+            >
+        <!-- <div class="form-group">
+          <label for="stateSelect">State</label>
+          {% render_field form.state title="State" class="form-control" %}
+        </div> -->
+
+        <div class="form-group">
+          <label for="citySelect">City</label>
+          {% render_field form.city title="City" class="form-control" %}
+        </div>
+
+        <div class="form-group">
+          <label for="areaSelect">Area</label>
+          {% render_field form.area title="Area" class="form-control" %}
+        </div>
+
+        <div class="form-group">
+          <button id="btnSubmit" class="btn btn-success" type="submit">submit</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+<br><br><br>
+<br><br><br>
+
+<div class = container>
+  <div class="row">
+        <form method = 'POST' enctype='multipart/form-data'> {% csrf_token %}
+
+          <div class="form-group">
+          <label for="title">title:</label>
+          {% render_field form.title title="title" class="form-control" %}
+
+          <label for="title">address:</label>
+          {% render_field form.address title="address" class="form-control" %}
+
+          <label for="title">content:</label>
+          {% render_field form.content title="content" class="form-control" %}
+
+          <label for="title">thumbnail:</label>
+          {% render_field form.thumbnail title="thumbnail" class="form-control" %}
+
+
+          </div>
+
+          <input type='submit' value='Save' />
+
+        </form>
+
+  </div>
+</div>
+
+<br><br>
+<br>
+<br>
+<br>
+<br> 
+
+
+{% endblock content %}
+
+{% block js %}
+  <script>
+    $(document).ready(function() {
+      // let state = $('#myForm').data('state')
+      let city = $('#myForm').data('city')
+      let area = $('#myForm').data('area')
+      // if (state) {
+      //   $('#id_state option[value='+state+']').attr('selected', 'selected');
+      // }
+      if (city) {
+        $('#id_city option[value='+city+']').attr('selected', 'selected');
+      }
+      if (area) {
+        $('#id_area option[value='+area+']').attr('selected', 'selected');
+      }
+    });
+
+    $('#id_state').on('change', function() {
+      $('#btnSubmit').click();
+    });
+
+    $('#id_city').on('change', function() {
+      $('#btnSubmit').click();
+    });
+  </script>
+{% endblock js %}

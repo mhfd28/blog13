@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br><br><br><br>
+{% for a in area_qs %}
+
+  <h3><a href="{{ a.get_absolute_url }}">{{a.title}}</a></h3>
+
+<br>
+{% endfor %}
+
+
+
+<br><br><br><br>
+
+
+
+
+
+
+
+
+{% endblock content %}

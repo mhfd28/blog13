@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br>
+
+
+{% for cat in category %}
+  <div>
+
+  <h2>  <a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a></h2>
+
+
+  </div>
+  <br/>
+{% endfor %}
+<!-- {% for ins in instance %}
+  <div>
+
+  <h2>  <a href="/">{{ ins.title }}</a></h2>
+
+
+  </div>
+  <br/>
+{% endfor %} -->
+
+
+  <br><br><br>
+
+
+{% endblock content %}

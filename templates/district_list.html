@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br><br><br><br>
+{% for dis in district_qs %}
+
+  <h3><a href="{{ dis.get_absolute_url }}">{{dis.number}}</a></h3>
+
+<br>
+{% endfor %}
+
+<br><br><br><br>
+
+
+
+
+
+
+
+
+
+{% endblock content %}
